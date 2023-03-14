@@ -30,7 +30,7 @@ function* loginUser({ payload: { user, history } }) {
         localStorage.setItem("token", response);
         yield put(loginSuccess(response));
         if (response.data?.role === "CTV") history.push("/postOfYou");
-        else history.push("/dashboard-analytics");
+        else history.push("/user/list");
       } else {
         yield put(apiError(response));
       }

@@ -492,3 +492,7 @@ export const schedule = () => {
 export const updateStatusOfRead = () => {
   return axios.patch(`${url.API_NOTIFICATION}/update-read-status`);
 };
+//
+export const getListBBCUser = () => {
+  return axios.get(`${url.API_USER}/getAllUser`);
+};

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Input, InputGroup, Row, Button } from "reactstrap";
 import BreadCrumb from "./../../Components/Common/BreadCrumb";
 import { Link } from "react-router-dom";
@@ -12,10 +12,19 @@ import {
   Popconfirm,
   Pagination,
 } from "antd";
+import { getListBBCUser } from "../../helpers/helper";
+
 const { Option } = Select;
 const { Column } = Table;
 const BCCUser = () => {
-    const users =[];
+  const users = [];
+  const getUserData = async () => {
+    const result = await getListBBCUser();
+    console.log("result:", result);
+  };
+  useEffect(() => {
+    getUserData();
+  }, []);
   return (
     <React.Fragment>
       <div className="page-content">
@@ -134,8 +143,8 @@ const BCCUser = () => {
                 // defaultPageSize={pageSize}
                 // current={pageIndex}
                 onChange={(page, pageSize) => {
-                //   setPageIndex(page);
-                //   setPageSize(pageSize);
+                  //   setPageIndex(page);
+                  //   setPageSize(pageSize);
                 }}
               />
             </Col>

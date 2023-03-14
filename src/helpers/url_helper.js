@@ -109,3 +109,6 @@ export const API_ORDER_POST = "/api/order-post";
 export const API_COUNT_WORD_GG_DOCS = "/api/count";
 export const API_SCHEDULE = "/api/schedule";
 export const API_NOTIFICATION = "/api/notifications";
+
+//
+export const API_USER = "/api/v1/users";
