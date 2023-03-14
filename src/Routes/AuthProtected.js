@@ -14,8 +14,9 @@ const AuthProtected =  (props) =>  {
   useEffect(  () => {
     const getUser = async () =>
     {
+      const Token = JSON.parse(sessionStorage.getItem("authUser"))
       const userList = await axios.get(process.env.REACT_APP_API_URL + "/api/v1/users/init",{headers:{
-        Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjQwZmQ3NWU4YTNkODg4NTIyNmY0OGIwIiwiaWF0IjoxNjc4NzYwMTY2LCJleHAiOjE2Nzg4NDY1NjZ9.Z0_vlnWiAFx1rPHeJx09cvkCj1Np43et-qqtLgXRj2g"
+        Authorization:`Bearer ${Token}`
       }}).then((res) =>{
 
       }).catch(() =>
