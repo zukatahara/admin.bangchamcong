@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
+import { logoutUser } from "../../store/actions";
 
 //import images
 
@@ -20,16 +21,19 @@ const ProfileDropdown = () => {
   useEffect(() => {
     if (sessionStorage.getItem("authUser")) {
       const obj = JSON.parse(sessionStorage.getItem("authUser"));
-      setUserName(user.firstName || obj.firstName || "Admin");
+      setUserName( "Admin");
       //   setUserName(obj?.role);
-      setRoleName(obj?.role);
-      setAvatar(user.avatar || obj.avatar || "");
+      setRoleName("Admin");
+      setAvatar( "");
       // console.log(obj.avatar);
     }
   }, [userName, user]);
+  const dispatch = useDispatch();
+
 
   const onClickLogout = () => {
     sessionStorage.removeItem("authUser");
+    dispatch(logoutUser())
   };
 
   //Dropdown Toggle
