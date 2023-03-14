@@ -16,6 +16,7 @@ const AuthProtected = (props) => {
     } else if (!userProfile && loading && !token) {
       dispatch(logoutUser());
     }
+    
   }, [token, userProfile, loading, dispatch]);
 
   /*
