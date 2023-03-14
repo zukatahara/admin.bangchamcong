@@ -4,7 +4,7 @@ import { api } from "../config";
 // default
 axios.defaults.baseURL = api.API_URL;
 // content type
-axios.defaults.headers.post["Content-Type"] = "application/json";
+// axios.defaults.headers.post["Content-Type"] = "application/json";
 // credentials
 // axios.defaults.withCredentials = true;
 
@@ -12,10 +12,12 @@ axios.defaults.headers.post["Content-Type"] = "application/json";
 
 const urlRefreshToken = "/api/users/refresh-token";
 // content type
-const token = JSON.parse(sessionStorage.getItem("authUser"))
-  ? JSON.parse(sessionStorage.getItem("authUser")).jwtToken
-  : null;
+// const token = JSON.parse(sessionStorage.getItem("authUser"))
+//   ? JSON.parse(sessionStorage.getItem("authUser")).jwtToken
+//   : null;
+const token = JSON.parse(sessionStorage.getItem("authUser"));
 if (token) axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+console.log("token:", token);
 
 // intercepting to capture errors
 axios.interceptors.response.use(

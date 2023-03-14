@@ -14,15 +14,18 @@ import {
   InputNumber,
 } from "antd";
 import { ListBanks } from "../../../common/listBank";
-
+import { Routes, Route, useParams } from "react-router-dom";
 const AddEditUser = () => {
+  let { id } = useParams();
+  console.log("id:", id);
   const [form] = Form.useForm();
   const onFinish = (value) => {
     console.log(`value`, value);
   };
+
   useEffect(() => {
     form.setFieldsValue({ departmuent: "seo", bankName: "VietinBank" });
-  }, []);
+  }, [id]);
   return (
     <React.Fragment>
       <div className="page-content">
