@@ -17,18 +17,26 @@ import { ListBanks } from "../../../common/listBank";
 import { Routes, Route, useParams } from "react-router-dom";
 import { async } from "q";
 import { createNewBCCUser } from "../../../helpers/helper";
+import { toast } from "react-toastify";
 const AddEditUser = () => {
   let { id } = useParams();
   console.log("id:", id);
   const [form] = Form.useForm();
   const onFinish = async (value) => {
     const result = await createNewBCCUser(value);
-    console.log("result:", result);
+    console.log("resultádasd:", result);
+    if(result?.status === 1){
+      toast.success("Thêm thành công!")
+    }
   };
 
   useEffect(() => {
     if (id === "new") {
-      form.setFieldsValue({ department: "seo", bankName: "VietinBank" });
+      form.setFieldsValue({
+        department: "seo",
+        bankName: "VietinBank",
+        isAdmin: "False",
+      });
     }
   }, [id]);
   return (
@@ -148,10 +156,7 @@ const AddEditUser = () => {
                           },
                         ]}
                       >
-                        <InputNumber
-                          style={{ width: "100%" }}
-                          controls={false}
-                        />
+                        <Input style={{ width: "100%" }} controls={false} />
                       </Form.Item>
                     </Col>
                     <Col span={6}>
@@ -182,7 +187,15 @@ const AddEditUser = () => {
                         <Input />
                       </Form.Item>
                     </Col>
-                    <Col span={16}>
+                    <Col span={6}>
+                      <Form.Item label="Chức vụ" name="isAdmin">
+                        <Select>
+                          <Select.Option value="False">Nhân viên</Select.Option>
+                          <Select.Option value="True">Admin</Select.Option>
+                        </Select>
+                      </Form.Item>
+                    </Col>
+                    <Col span={24}>
                       <Form.Item>
                         <Button type="primary" htmlType="submit">
                           {id === "new" ? "Tạo mới" : "Cập nhật"}
