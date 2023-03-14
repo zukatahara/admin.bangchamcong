@@ -242,7 +242,6 @@ function AddUser() {
                               Mật khẩu không được bỏ trống
                             </span>
                           ) : null}
-                          {/* {formVal.passwordHash.length < 6 ? <span style={{color:"red"}}>Mật khẩu phải có ít nhât 6 ký tự</span>  : null} */}
                         </FormGroup>
                       </Col>
                     )}
@@ -317,9 +316,6 @@ function AddUser() {
                                 </Option>
                               );
                             })}
-                          {/* <Option value="Admin">Admin</Option>
-                          <Option value="Leader">Leader </Option>
-                          <Option value="Member">Member</Option> */}
                         </Select>
                         {errRole.length ? (
                           <span style={{ color: "red" }}>
@@ -342,29 +338,11 @@ function AddUser() {
                           placeholder="Trạng thái"
                           style={{ width: "100%" }}
                         >
-                          {/* {roleList &&
-                            roleList.map((item, index) => {
-                              return (
-                                <Option value={item._id} key={item._id}>
-                                  {item.roleName}
-                                </Option>
-                              );
-                            })} */}
                           <Option value={1}>Hoạt động</Option>
                           <Option value={2}>không hoạt động</Option>
-                          {/* <Option value="Collaborators">Cộng tác viên</Option> */}
                         </Select>
                       </FormGroup>
                     </Col>
-                    {/* <Col lg={6}>
-                      <FormGroup>
-                        <Label className="mb-1" for="status">
-                        avatar
-                        </Label>
-                        <Input  value={formVal.avatar}
-                          onChange={onInputChange}  name="avatar"/>
-                      </FormGroup>
-                    </Col> */}
                   </Row>
                 </Form>
               </div>

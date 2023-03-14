@@ -15,23 +15,28 @@ import {
 } from "antd";
 import { ListBanks } from "../../../common/listBank";
 import { Routes, Route, useParams } from "react-router-dom";
+import { async } from "q";
+import { createNewBCCUser } from "../../../helpers/helper";
 const AddEditUser = () => {
   let { id } = useParams();
   console.log("id:", id);
   const [form] = Form.useForm();
-  const onFinish = (value) => {
-    console.log(`value`, value);
+  const onFinish = async (value) => {
+    const result = await createNewBCCUser(value);
+    console.log("result:", result);
   };
 
   useEffect(() => {
-    form.setFieldsValue({ departmuent: "seo", bankName: "VietinBank" });
+    if (id === "new") {
+      form.setFieldsValue({ department: "seo", bankName: "VietinBank" });
+    }
   }, [id]);
   return (
     <React.Fragment>
       <div className="page-content">
         <Container fluid>
           <BreadCrumb
-            title={"Sửa thành viên"}
+            title={id === "new" ? "Thên mới" : "Cập nhật"}
             pageTitle="Quản lý thành viên"
             slug="users"
           />
@@ -165,7 +170,7 @@ const AddEditUser = () => {
                     </Col>
                     <Col span={6}>
                       <Form.Item
-                        label="Lương"
+                        label="Lương (đ)"
                         name="salary"
                         rules={[
                           {
@@ -180,7 +185,7 @@ const AddEditUser = () => {
                     <Col span={16}>
                       <Form.Item>
                         <Button type="primary" htmlType="submit">
-                          Tạo mới
+                          {id === "new" ? "Tạo mới" : "Cập nhật"}
                         </Button>
                       </Form.Item>
                     </Col>
