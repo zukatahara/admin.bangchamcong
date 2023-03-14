@@ -24,10 +24,10 @@ function* loginUser({ payload: { user, history } }) {
         password: user.password,
       });
       console.log("response:", response);
-
+      
       if (response && response.status !== 0) {
         sessionStorage.setItem("authUser", JSON.stringify(response));
-        localStorage.setItem("token", response);
+        localStorage.setItem("authUser", response);
         yield put(loginSuccess(response));
         if (response.data?.role === "CTV") history.push("/postOfYou");
         else history.push("/user/list");
