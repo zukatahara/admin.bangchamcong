@@ -496,7 +496,9 @@ export const updateStatusOfRead = () => {
 export const getListBBCUser = () => {
   return axios.get(`${url.API_USER}/getAllUser`,{ headers:{
     'Access-Control-Allow-Credentials':true
-  }});
+  }}).catch(() =>{
+    window.location.reload()
+  });
 };
 export const createNewBCCUser = (data) => {
   return axios.post(`${url.API_USER}/register`, data);
