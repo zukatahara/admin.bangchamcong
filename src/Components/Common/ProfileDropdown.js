@@ -19,8 +19,8 @@ const ProfileDropdown = () => {
   const [avatar, setAvatar] = useState("");
 
   useEffect(() => {
-    if (localStorage.getItem("authUser")) {
-      const obj = JSON.parse(localStorage.getItem("authUser"));
+    if (sessionStorage.getItem("authUser")) {
+      const obj = JSON.parse(sessionStorage.getItem("authUser"));
       setUserName( "Admin");
       //   setUserName(obj?.role);
       setRoleName("Admin");
@@ -32,7 +32,7 @@ const ProfileDropdown = () => {
 
 
   const onClickLogout = () => {
-    localStorage.removeItem("authUser");
+    sessionStorage.removeItem("authUser");
     dispatch(logoutUser())
   };
 
