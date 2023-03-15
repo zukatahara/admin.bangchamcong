@@ -494,10 +494,11 @@ export const updateStatusOfRead = () => {
 };
 //
 export const getListBBCUser = () => {
+  const Token = JSON.parse(sessionStorage.getItem("authUser"))
   return axios.get(`${url.API_USER}/getAllUser`,{ headers:{
-    'Access-Control-Allow-Credentials':true
+    Authorization:`Bearer ${Token}`
   }}).catch(() =>{
-    window.location.reload()
+  
   });
 };
 export const createNewBCCUser = (data) => {
