@@ -7,22 +7,25 @@ import { getListBBCUser } from "../../helpers/helper";
 import BCCSearch from "./SearchFrom";
 import BBCUserResultTable from "./BBCUserResultTable";
 
-
 const BCCUser = () => {
   const [loading, setLoading] = useState(true);
   const [userData, setUserData] = useState([]);
+  const [searchByName, setSearchByName] = useState("");
+  const [searchByDepartment, setSearchByDepartment] = useState("");
   const getUserData = async () => {
-    const result = await getListBBCUser();
-    
+    setLoading(true);
+    const result = await getListBBCUser(searchByName, searchByDepartment);
     console.log("result:", result);
     setUserData(result?.data);
     setLoading(false);
   };
   useEffect(() => {
     getUserData();
-  }, []);
+  }, [searchByName, searchByDepartment]);
   const onBCCUserSearch = (value) => {
     // console.log("value:", value);
+    setSearchByName(value?.name);
+    setSearchByDepartment(value?.department);
   };
   //
 
@@ -33,7 +36,7 @@ const BCCUser = () => {
           <BreadCrumb title="Thành Viên" pageTitle="Quản lý thành viên" />
           <BCCSearch search={onBCCUserSearch} />
           <Spin spinning={loading}>
-            <BBCUserResultTable data={userData} />
+            <BBCUserResultTable data={userData} getUserData={getUserData} />
           </Spin>
         </Container>
       </div>

@@ -493,18 +493,30 @@ export const updateStatusOfRead = () => {
   return axios.patch(`${url.API_NOTIFICATION}/update-read-status`);
 };
 //
-export const getListBBCUser = () => {
-  const Token = JSON.parse(sessionStorage.getItem("authUser"))
-  return axios.get(`${url.API_USER}/getAllUser`,{
-    headers:{
-      
-        Authorization:`Bearer ${Token}`
-    }
-  }).catch(() =>{
-  
-    // window.location.reload()
-  });
+export const getListBBCUser = (name, department) => {
+  const Token = JSON.parse(sessionStorage.getItem("authUser"));
+  return axios
+    .get(`${url.API_USER}/getAllUser?name=${name}&department=${department}`, {
+      headers: {
+        Authorization: `Bearer ${Token}`,
+      },
+    })
+    .catch(() => {
+      // window.location.reload()
+    });
 };
 export const createNewBCCUser = (data) => {
   return axios.post(`${url.API_USER}/register`, data);
 };
+export const getUserDetail = (id) => {
+  return axios.get(`${url.API_USER}/${id}`);
+};
+export const updateBCCUser = (id, data) => {
+  return axios.put(`${url.API_USER}/update/${id}`, data);
+};
+export const deleteBCCUser = (id) => {
+  return axios.delete(`${url.API_USER}/delete/${id}`);
+};
+// export const deleteBCCUser= (id) =>{
+//   return axios.delete(`${url.API_USER}/delete/${id}`)
+// }

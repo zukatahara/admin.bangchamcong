@@ -171,6 +171,20 @@ const Navdata = () => {
         // },
       ],
     },
+    {
+      id: "dashboard",
+      label: "Chấm công",
+      icon: "ri-dashboard-2-line",
+      link: "/timekeeping",
+      stateVariables: isDashboard,
+      disable: user?.role === "CTV" ? true : false,
+      click: function (e) {
+        e.preventDefault();
+        setIsDashboard(!isDashboard);
+        setIscurrentState("Dashboard");
+        updateIconSidebar(e);
+      },
+    },
     // {
     //   id: "brand-management",
     //   label: "QUẢN LÝ THƯƠNG HIỆU",

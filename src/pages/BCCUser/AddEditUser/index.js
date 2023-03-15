@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import BreadCrumb from "./../../../Components/Common/BreadCrumb";
 import { Link } from "react-router-dom";
 import { Container } from "reactstrap";
+import Joi from "joi";
 import {
   Input,
   message,
@@ -15,21 +16,55 @@ import {
 } from "antd";
 import { ListBanks } from "../../../common/listBank";
 import { Routes, Route, useParams } from "react-router-dom";
-import { async } from "q";
-import { createNewBCCUser } from "../../../helpers/helper";
+import {
+  createNewBCCUser,
+  getUserDetail,
+  updateBCCUser,
+} from "../../../helpers/helper";
 import { toast } from "react-toastify";
 const AddEditUser = () => {
   let { id } = useParams();
   console.log("id:", id);
   const [form] = Form.useForm();
   const onFinish = async (value) => {
-    const result = await createNewBCCUser(value);
-    console.log("resultádasd:", result);
-    if(result?.status === 1){
-      message .success("Thêm thành công!")
+    console.log(`asdjfjkh`);
+    if (id === "new") {
+      console.log(`shdfk`);
+      const schema = Joi.object({
+        name: Joi.string().required(),
+        password: Joi.string().required(),
+        password2: Joi.ref("password"),
+        employeeNumber: Joi.number().required(),
+        bankName: Joi.string().required(),
+        userBankNumber: Joi.string().required(),
+        salary: Joi.number().required(),
+        email: Joi.string().email({ tlds: { allow: false } }),
+        department: Joi.string(),
+        isAdmin: Joi.string().required(),
+        phonenumber: Joi.string().required(),
+      });
+      const checkValidBody = schema.validate(value);
+      if (checkValidBody?.error) {
+        message.error(checkValidBody?.error?.message);
+      } else {
+        const result = await createNewBCCUser(value);
+        if (result?.status === 1) {
+          message.success("Thêm thành công!");
+        }
+      }
+    } else {
+      console.log(`vao day nha`);
+      const result = await updateBCCUser(id, value);
+      if (result?.status === 200) {
+        message.success("Cập nhật thành công");
+      }
     }
   };
 
+  const getUserData = async () => {
+    const result = await getUserDetail(id);
+    form.setFieldsValue(result?.data);
+  };
   useEffect(() => {
     if (id === "new") {
       form.setFieldsValue({
@@ -37,6 +72,8 @@ const AddEditUser = () => {
         bankName: "VietinBank",
         isAdmin: "False",
       });
+    } else {
+      getUserData();
     }
   }, [id]);
   return (
@@ -50,7 +87,7 @@ const AddEditUser = () => {
           />
 
           <Row className="mb-3" style={{ display: "block" }}>
-            <div className="mb-3">
+            <div className="mb-3" style={{ width: "10%" }}>
               <Link to="/user/list">
                 <div
                   className="d-flex align-items-center"
@@ -127,7 +164,36 @@ const AddEditUser = () => {
                         <Input />
                       </Form.Item>
                     </Col>
-
+                    <Col span={6} hidden={id === "new" ? false : true}>
+                      <Form.Item
+                        label="Mật khẩu"
+                        name="password"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Vui lòng nhập mật khẩu!",
+                          },
+                        ]}
+                        hidden={id === "new" ? false : true}
+                      >
+                        <Input disabled={id === "new" ? false : true} />
+                      </Form.Item>
+                    </Col>
+                    <Col span={6} hidden={id === "new" ? false : true}>
+                      <Form.Item
+                        label="Xác nhận mật khẩu"
+                        name="password2"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Vui lòng nhập mật khẩu!",
+                          },
+                        ]}
+                        hidden={id === "new" ? false : true}
+                      >
+                        <Input disabled={id === "new" ? false : true} />
+                      </Form.Item>
+                    </Col>
                     <Col span={6}>
                       <Form.Item
                         label="Phòng ban"
