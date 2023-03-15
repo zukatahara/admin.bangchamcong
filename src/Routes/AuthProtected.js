@@ -15,6 +15,7 @@ const AuthProtected =  (props) =>  {
     const getUser = async () =>
     {
       const Token = JSON.parse(sessionStorage.getItem("authUser"))
+      console.log(Token)
       const userList = await axios.get(process.env.REACT_APP_API_URL + "/api/v1/users/init",{headers:{
         Authorization:`Bearer ${Token}`
       }}).then((res) =>{

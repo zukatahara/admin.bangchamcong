@@ -26,7 +26,7 @@ const AddEditUser = () => {
     const result = await createNewBCCUser(value);
     console.log("resultádasd:", result);
     if(result?.status === 1){
-      toast.success("Thêm thành công!")
+      message .success("Thêm thành công!")
     }
   };
 

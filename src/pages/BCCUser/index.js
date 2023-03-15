@@ -13,6 +13,7 @@ const BCCUser = () => {
   const [userData, setUserData] = useState([]);
   const getUserData = async () => {
     const result = await getListBBCUser();
+    
     console.log("result:", result);
     setUserData(result?.data);
     setLoading(false);
