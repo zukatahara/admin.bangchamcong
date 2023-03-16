@@ -493,17 +493,13 @@ export const updateStatusOfRead = () => {
   return axios.patch(`${url.API_NOTIFICATION}/update-read-status`);
 };
 //
-export const getListBBCUser = (name, department) => {
-  const Token = JSON.parse(sessionStorage.getItem("authUser"));
-  return axios
-    .get(`${url.API_USER}/getAllUser?name=${name}&department=${department}`, {
-      headers: {
-        Authorization: `Bearer ${Token}`,
-      },
-    })
-    .catch(() => {
-      // window.location.reload()
-    });
+export const getListBBCUser = () => {
+  const Token = JSON.parse(sessionStorage.getItem("authUser"))
+  return axios.get(`${url.API_USER}/getAllUser`,{ headers:{
+    Authorization:`Bearer ${Token}`
+  }}).catch(() =>{
+  
+  });
 };
 export const createNewBCCUser = (data) => {
   return axios.post(`${url.API_USER}/register`, data);
