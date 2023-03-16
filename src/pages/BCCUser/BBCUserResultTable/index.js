@@ -60,7 +60,7 @@ const BBCUserResultTable = ({ data, getUserData }) => {
           <>
             <Space size="large">
               <DetailBBCUser record={record} />
-              <Link to={`/user/add/${_}`} >
+              <Link to={`/user/add/${_}`}>
                 <BsPencil style={{ cursor: "pointer" }} size="18" />
               </Link>
               <Popconfirm

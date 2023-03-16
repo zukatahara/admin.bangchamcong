@@ -21,13 +21,11 @@ import {
   getUserDetail,
   updateBCCUser,
 } from "../../../helpers/helper";
-import { toast } from "react-toastify";
 const AddEditUser = () => {
   let { id } = useParams();
-  console.log("id:", id);
+  console.log("idsfdsaf:", id);
   const [form] = Form.useForm();
   const onFinish = async (value) => {
-    console.log(`asdjfjkh`);
     if (id === "new") {
       console.log(`shdfk`);
       const schema = Joi.object({
@@ -53,7 +51,6 @@ const AddEditUser = () => {
         }
       }
     } else {
-      console.log(`vao day nha`);
       const result = await updateBCCUser(id, value);
       if (result?.status === 200) {
         message.success("Cập nhật thành công");
@@ -170,7 +167,7 @@ const AddEditUser = () => {
                         name="password"
                         rules={[
                           {
-                            required: true,
+                            required: id !== "new" ? false : true,
                             message: "Vui lòng nhập mật khẩu!",
                           },
                         ]}
@@ -185,7 +182,7 @@ const AddEditUser = () => {
                         name="password2"
                         rules={[
                           {
-                            required: true,
+                            required: id !== "new" ? false : true,
                             message: "Vui lòng nhập mật khẩu!",
                           },
                         ]}
